@@ -1,0 +1,158 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1488902343003'); /* IE9*/
+  src: url('iconfont.eot?t=1488902343003#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1488902343003') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1488902343003') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1488902343003#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-baidu:before { content: "\e68b"; }
+
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	background-color:#202020;
+	line-height:2.5;
+}
+.header{
+	background-color:#303030;
+	width:1340px;
+	height:60px;
+	margin:0 auto;
+}
+.header>h1{
+	height:60px;
+	color:red;
+	float:left;
+	font-size:30px;
+	line-height:70px;
+	margin-left:40px!important;	
+}
+i{
+	color:blue;
+	font-size:45px;
+}
+.link{
+	float:right;
+	margin-right:20px;
+}
+.link .last a{
+	color:#999;
+}
+.header li{
+	float:left;
+	width:100px;
+	height:60px;
+	line-height:60px;
+}
+.header a{
+	color:#eee;
+	text-decoration:none;
+}
+.content{
+	background-color:#E0E0E0;
+	width:1300px;
+	margin:0 auto;
+	padding:20px;
+}
+.content>div{
+	background-color:#fff;
+	padding:20px;
+	margin:20px 0;
+}
+.section,.list,{
+	text-indent:2em;
+}
+.content h2,.for{
+	color:gray;
+}
+.writer{
+	color:gray;
+	text-size:0.8em;
+}
+ol{
+	margin-left:2em;
+}
+.list{
+	list-style-type:none;
+	text-indent:2em;
+}
+.box{
+	border:1px solid gray;
+	width:400px;
+	padding:5px 20px;
+	margin:30px 40px;
+}
+.box>p{
+	text-align:center;
+	margin-bottom:10px;
+}
+table{
+	border-collapse:collapse;
+	width:100%;
+}
+th{
+	background-color:#202020;
+	color:white;
+	text-align:left;
+}
+td,th{
+	padding-left:5px;
+}
+.a{
+	background-color:#C0C0C0;
+}
+.side{
+	width:400px;
+	margin:0 auto;
+	padding-bottom:100px;
+}
+.formname{
+	position:absolute;
+	right:51%;
+}
+.in,select,textarea,.for{
+	position:absolute;
+	left:50%;
+}
+.top{
+	height:25px;
+	width:180px;
+	line-height:40px;
+	text-indent:5px;
+}
+input,textarea{
+	border:1px solid #999;
+}
+
+#submit{
+	width:100%;
+	height:40px;
+	margin:10px auto;
+	text-align:center;
+	background-color:blue;
+	color:white;
+	font-weight:bold;
+	border:1px solid blue;
+	border-radius:10px;
+}
+.footer{
+	background-color:#000;
+	color:white;
+	width:1300px;
+	margin:0 auto;
+	padding:20px;
+	text-align:center;
+}
+a{
+	color:blue;
+}
