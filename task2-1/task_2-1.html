@@ -10,13 +10,16 @@
 	<div>您输入的值是：<span id="aqi-display">尚无录入</span></div>
 
 	<script type="text/javascript">
+		//获取节点
 		var Button=document.getElementById("button");
 		var Input=document.getElementById("aqi-input");
 		var Ivalue=Input.value;
 		var In=document.getElementById("aqi-display");
+		//绑定事件
 		Button.onclick=function(){
 			In.innerHTML=Input.value
 		}
+		//尝试用function Bu()这种方法执行，每次页面加载完后才能获取value值。
 	</script>
 </body>
 </html>
