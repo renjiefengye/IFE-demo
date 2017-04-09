@@ -1,0 +1,101 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task_02-03</title>
+</head>
+<body>
+
+<ul id="source">
+	<li>北京空气质量：<b>90</b></li>
+	<li>上海空气质量：<b>70</b></li>
+	<li>天津空气质量：<b>80</b></li>
+	<li>广州空气质量：<b>50</b></li>
+	<li>深圳空气质量：<b>40</b></li>
+	<li>福州空气质量：<b>32</b></li>
+	<li>成都空气质量：<b>90</b></li>
+</ul>
+
+<ul id="resort">
+	<!--
+    <li>第一名：北京空气质量：<b>90</b></li>
+    <li>第二名：北京空气质量：<b>90</b></li>
+    <li>第三名：北京空气质量：<b>90</b></li>
+     -->
+
+</ul>
+
+<button id="sort-btn">排序</button>
+
+<script type="text/javascript">
+	var ulSource=document.getElementById("source");
+	var ulResort=document.getElementById("resort");
+	var liSource=document.getElementsByTagName("li");
+	var onButton=document.getElementById("sort-btn");
+
+	function getData() {
+		//创建空数组aArray 循环li放入数组中，创建一维数组。
+		var aArray=[];
+		var data=[];
+		for(var i=0; i<liSource.length; i++){
+			aArray.push(liSource[i].innerText);
+		}
+		//console.log(aArray)
+		//对创建的一维数组元素进行循环，将每个字符串切割成组。
+		for(var j=0; j<aArray.length; j++){
+			aArray[j].split("：");
+			//console.log(aArray[2].split(":"));
+			data.push(aArray[j].split("："))
+		}
+//		console.log(data);
+        return data;
+	}
+//	getData();
+
+	function sortAqiData(dat) {
+//		console.log(dat);
+		//冒泡排序，两次循环对数组进行排序
+		for(var i=0; i<dat.length; i++){
+			for(var j=0; j<dat.length; j++){
+				if (dat[i][1]> dat[j][1] ){
+					var trans = dat[i];
+					dat[i] = dat[j];
+					dat[j] = trans;
+				}
+			}
+		}
+		return dat;
+	}
+	sortAqiData(getData());
+//	把排序后的数组添加到ul里
+	function render(data) {
+		var str="";
+		for(var i=0; i<data.length; i++){
+			str += "<li>第"+ (i+1)+ "名："+ data[i][0]+"：<b>"+ data[i][1]+ "</b></li>";
+		}
+		ulResort.innerHTML=str;
+		ulResort.style.display="none";
+		ulResort.style.listStyle="none";
+//		console.log(ulResort);
+	}
+	render(sortAqiData(getData()));
+
+//点击触发事件
+	function btnHandle() {
+		var aqiData = getData();
+		aqiData = sortAqiData(aqiData);
+		render(aqiData);
+	}
+
+	function init() {
+		// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
+		onButton.onclick=function(){
+			ulResort.style.display="block";
+		}
+	}
+
+	init();
+
+</script>
+</body>
+</html>
