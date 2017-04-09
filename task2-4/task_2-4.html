@@ -1,0 +1,118 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task_02-04</title>
+	<style>
+		*{margin:0;padding:0;}
+		form{display:inline-block;float:left;width:220px;}
+		input{width:200px;height:30px;margin:10px;}
+		label{display:none;width:200px;height:20px;margin-left:10px;line-height:20px;}
+		button{padding:5px;margin-top:10px;border-radius:3px;background-color: #a0a0a0;border:#a0a0a0;}
+		ul{font-size:0;clear:both;}
+		li{display:inline-block;padding:5px;background-color: #f00;font-size:16px;margin:10px 0 0 10px;}
+	</style>
+</head>
+<body>
+<form>
+
+	<input id="myNumber" type="number" name="text">
+	<label>请输入数字</label>
+</form>
+
+<button>左侧入</button>
+<button>右侧入</button>
+<button>左侧出</button>
+<button>右侧出</button>
+
+<ul>
+	<li>10</li>
+	<li>3</li>
+	<li>7</li>
+	<li>12</li>
+	<li>11</li>
+	<li>30</li>
+</ul>
+
+<script type="text/javascript">
+
+	var nValue=document.getElementById("myNumber");
+	var nLi=document.getElementsByTagName("li");
+	var nUl=document.getElementsByTagName("ul")[0];
+	var nP=document.getElementsByTagName("label")[0];
+	var nBut=document.getElementsByTagName("button");
+
+
+
+	//合法性验证
+	//聚焦时弹出提示
+	nValue.onfocus=function(){
+		//console.log(nP);
+		nP.style.display="block";
+	};
+
+	//判断输入的是否为数字
+	function textStr(){
+		//含有非法字符
+		var re=/^[^\d+]$/g;
+		//console.log(re.test(nValue.value));
+		if(re.test(nValue.value)){
+			nP.style.display="block";
+			nP.style.color="red";
+			nP.innerText="请输入合法的数字"
+		}else if(nValue.value==""){
+			nP.innerHTML="不能为空"
+		}else{
+			nP.innerHTML="合法数字"
+		}
+	}
+	//	创建数组，将li元素内容放入数组中
+	var liArray=[];
+	for(var i=0; i<nLi.length; i++){
+		liArray.push(nLi[i].innerText);
+	}
+	//	console.log(liArray);
+
+	//遍历数组，把数组转为字符串放入ul中
+	function render(){
+		var str="";
+		for(var i=0; i<liArray.length; i++){
+			str += "<li>"+ liArray[i]+ "</li>"
+		}
+		nUl.innerHTML=str;
+	}
+	render();
+
+
+	//点击事件
+	nBut[0].onclick=function(){
+		liArray.unshift(nValue.value);
+		render();
+		textStr();
+	};
+	nBut[1].onclick=function(){
+		liArray.push(nValue.value);
+		render();
+	};
+
+	nBut[2].onclick=function(){
+		liArray.shift(nValue.value);
+		render();
+	};
+	nBut[3].onclick=function(){
+		liArray.pop(nValue.value);
+		render();
+	};
+
+	//	数字的合法性
+//	var str="433";
+//	var re=/\d/g;
+//	re.test(str);
+
+
+
+
+
+</script>
+</body>
+</html>
