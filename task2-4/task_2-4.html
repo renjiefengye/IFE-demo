@@ -16,7 +16,7 @@
 <body>
 <form>
 
-	<input id="myNumber" type="number" name="text">
+	<input id="myNumber" type="text" name="text">
 	<label>请输入数字</label>
 </form>
 
@@ -54,16 +54,20 @@
 	//判断输入的是否为数字
 	function textStr(){
 		//含有非法字符
-		var re=/^[^\d+]$/g;
+		var re=/[^\d]/g;
 		//console.log(re.test(nValue.value));
 		if(re.test(nValue.value)){
 			nP.style.display="block";
 			nP.style.color="red";
-			nP.innerText="请输入合法的数字"
+			nP.innerText="请输入合法的数字";
+			return false;
 		}else if(nValue.value==""){
-			nP.innerHTML="不能为空"
+			nP.innerHTML="不能为空";
+			return false;
 		}else{
-			nP.innerHTML="合法数字"
+			nP.style.color="#0f0";
+			nP.innerHTML="合法数字";
+			return true;
 		}
 	}
 	//	创建数组，将li元素内容放入数组中
@@ -86,13 +90,18 @@
 
 	//点击事件
 	nBut[0].onclick=function(){
-		liArray.unshift(nValue.value);
-		render();
-		textStr();
+		//如果输入的合法则执行函数
+		if(textStr()){
+			liArray.unshift(nValue.value);
+			render();
+		}
 	};
 	nBut[1].onclick=function(){
-		liArray.push(nValue.value);
-		render();
+		//如果输入的合法则执行函数
+		if(textStr()){
+			liArray.push(nValue.value);
+			render();
+		}
 	};
 
 	nBut[2].onclick=function(){
