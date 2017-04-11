@@ -1,0 +1,154 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task_02-05</title>
+	<style>
+		*{margin:0;padding:0;}
+		form{display:inline-block;float:left;width:220px;}
+		input{width:200px;height:30px;margin:10px;}
+		label{display:none;width:250px;height:20px;margin-left:10px;line-height:20px;}
+		button{padding:5px;margin-top:10px;border-radius:3px;background-color: #a0a0a0;border:#a0a0a0;}
+		ul{font-size:0;clear:both;margin-left:10px;}
+		li{display:inline-block;width:30px;background-color: #f00;font-size:16px;margin:10px 1px 0 0;}
+	</style>
+</head>
+<body>
+<form>
+
+	<input id="myNumber" type="text" name="text">
+	<label>请输入数字</label>
+</form>
+
+<button>左侧入</button>
+<button>右侧入</button>
+<button>左侧出</button>
+<button>右侧出</button>
+
+<ul>
+	<li>10</li>
+	<li>13</li>
+	<li>17</li>
+	<li>12</li>
+	<li>11</li>
+	<li>30</li>
+</ul>
+
+<script type="text/javascript">
+
+	var nValue=document.getElementById("myNumber");
+	var nLi=document.getElementsByTagName("li");
+	var nUl=document.getElementsByTagName("ul")[0];
+	var nP=document.getElementsByTagName("label")[0];
+	var nBut=document.getElementsByTagName("button");
+
+
+
+	//合法性验证
+	//聚焦时弹出提示
+	nValue.onfocus=function(){
+		//console.log(nP);
+		nP.style.display="block";
+		nP.innerText="请输入合法的数字"
+	};
+
+	//判断输入的是否为数字
+	function textStr(){
+		//含有非法字符
+		var re=/[^\d]/g;
+		//console.log(re.test(nValue.value));
+		if(re.test(nValue.value)){
+			nP.style.display="block";
+			nP.style.color="red";
+			nP.innerText="请输入合法的数字";
+			return false;
+		}else if(nValue.value==""){
+			nP.style.color="red";
+			nP.innerHTML="不能为空";
+			return false;
+		}else if(nValue.value<10|| nValue.value>100){
+			nP.style.color="red";
+			nP.innerHTML="请输入大于10小于100的数字";
+			return false;
+		}else{
+			nP.style.color="#0f0";
+			nP.innerHTML="合法数字";
+			return true;
+		}
+	}
+
+	//	创建数组，将li元素内容放入数组中
+	var liArray=[];
+	for(var i=0; i<nLi.length; i++){
+		liArray.push(nLi[i].innerText);
+	}
+	//	console.log(liArray);
+
+	//遍历数组，把数组转为字符串放入ul中
+	function render(){
+		var str="";
+		for(var i=0; i<liArray.length; i++){
+			str += "<li>"+ liArray[i]+ "</li>";
+		}
+		nUl.innerHTML=str;
+		//样式初始化
+		changeStyle()
+	}
+	render();
+
+	//改变样式
+	function changeStyle(){
+		var newLi=document.getElementsByTagName("li");
+		//console.log(newLi.length);
+		//当li多于60时候
+		if(newLi.length>60){
+			alert("已经多于60个");
+			return false;
+		}
+		for(var j = 0; j<newLi.length; j++){
+			//console.log(newLi[j]);
+			newLi[j].style.height=newLi[j].innerText+'px';
+		}
+	}
+	//console.log(liArray);
+
+	//点击事件
+	nBut[0].onclick=function(){
+		//如果输入的合法则执行函数
+		if(textStr()){
+			liArray.unshift(nValue.value);
+			render();
+		}
+	};
+	nBut[1].onclick=function(e){
+		//如果输入的合法则执行函数
+		if(textStr()){
+			liArray.push(nValue.value);
+			render();
+		}
+	};
+	nBut[2].onclick=function(){
+		liArray.shift(nValue.value);
+		render();
+	};
+	nBut[3].onclick=function(){
+		liArray.pop(nValue.value);
+		render();
+	};
+
+	if(liArray.length>10){
+		alert(最多只能为10)
+	}
+
+	//	数字的合法性
+//	var str="433";
+//	var re=/\d/g;
+//	re.test(str);
+
+
+
+
+
+</script>
+</body>
+</html>
