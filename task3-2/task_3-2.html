@@ -1,0 +1,227 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task_03-02</title>
+	<style>
+		form{width:400px;margin:40px auto 0;}
+		span{display:inline-block;width:80px;font-weight:bold;}
+		input{width:260px;height:40px;border:1px solid #a0a0a0;border-radius:3px;text-indent:16px;}
+		p{font-size:16px;color:#999;margin-left:80px;visibility: hidden;}
+	</style>
+</head>
+<body>
+	<form>
+		<div>
+			<label><span>名称：</span><input id="txt" type="text" name="user-name"></label>
+			<p>必填，长度为4~16个字符</p>
+		</div>
+		<div>
+			<label><span>密码：</span><input id="passw" type="password" name="user-password"></label>
+			<p>请输入密码</p>
+		</div>
+		<div>
+			<label><span>确认密码：</span><input id="passw2" type="password" name="user-password2" disabled=""></label>
+			<p>请再次输入密码</p>
+		</div>
+		<div>
+			<label><span>邮箱：</span><input id="ema" type="email" name="user-email"></label>
+			<p>请输入邮箱</p>
+		</div>
+		<div>
+			<label><span>电话：</span><input id="tel" type="text" name="user-phone"></label>
+			<p>请输入电话</p>
+		</div>
+	</form>
+
+
+<script type="text/javascript">
+	//获取字符串的长度
+	function getLen(str){
+		//匹配双字节字符[X00-XFF]，比如大写英文字母。加上^表示相反的意思，就是匹配非双字节的字符。小写字母和汉字都会被匹配出来。
+		return str.replace(/[^\x00-xff]/g,"xx").length;
+	}
+	//不能为相同字符
+	function unSim(str,n){
+		var temp=0;
+		for(var i=0; i<str.length; i++){
+			if(str.charAt(i)==n){
+				temp++
+			}
+		}
+		return temp;
+	}
+	window.onload=function(){
+		var inputA=document.getElementsByTagName("input");
+		var nameU=inputA[0];
+		var pasU=inputA[1];
+		var pas2U=inputA[2];
+		var emaU=inputA[3];
+		var phoU=inputA[4];
+
+		var pA=document.getElementsByTagName("p");
+		var name_msg=pA[0];
+		var pas_msg=pA[1];
+		var pas2_msg=pA[2];
+		var ema_msg=pA[3];
+		var pho_msg=pA[4];
+
+		var name_length=0;
+		//1.数字、字母（不分大小写）、汉字、下划线
+		//2.6-16字符,字母加数字或符号
+		//3.正确的邮箱地址
+		//4.正确的电话号码
+
+		//输入姓名
+		nameU.onfocus=function(){
+			name_msg.style.visibility="visible";
+		};
+		nameU.onblur=function(){
+			//非法字符
+			//unicode\u4e00-\u9fa5代表所有中文字符，/[\u4e00-\u9fa5]+/至少匹配一个汉字。
+			var re=/[^\w\u4e00-\u9fa5]/g;
+
+			name_length=getLen(this.value);
+			//含有非法字符
+			if(re.test(this.value)){
+				name_msg.style.color="#f00";
+				name_msg.innerHTML="含有非法字符"
+			}
+			//不能为空
+			else if(this.value==""){
+				name_msg.style.color="#f00";
+				name_msg.innerHTML="不能为空"
+			}
+			//小于4个字符
+			else if(name_length < 4){
+				name_msg.style.color="#f00";
+				name_msg.innerHTML="不能小于4个字符"
+			}
+			//大于16个字符
+			else if(name_length > 16){
+				name_msg.style.color="#f00";
+				name_msg.innerHTML="不能大于16个字符"
+			}
+			//ok
+			else {
+				name_msg.style.color="#0f0";
+				name_msg.innerHTML="ok"
+			}
+		};
+		//密码输入
+		pasU.onfocus=function(){
+			pas_msg.style.visibility="visible";
+			//光标聚集，确认密码可输入
+			pas2U.removeAttribute("disabled")
+		};
+		pasU.onblur=function(){
+			//调用不能相同的函数
+			var s=unSim(pasU.value,pasU.value[0]);
+			//声明正则,不全是数字！！！！！
+			var numN=/[^\d]/g;
+			//声明正则，不能全为字母！！！！
+			var worN=/[^a-zA-Z]/g;
+
+			//不能为空
+			if(this.value==""){
+				pas_msg.style.color="#f00";
+				pas_msg.innerHTML="不能为空"
+			}
+			//不能用相同字符
+			else if(s==this.value.length){
+				pas_msg.style.color="#f00";
+				pas_msg.innerHTML="不能用相同的字符"
+			}
+			//长度应为6-16个字符
+			else if(this.value.length<6 || this.value.length>16){
+				pas_msg.style.color="#f00";
+				pas_msg.innerHTML="长度应为6-16个字符"
+			}
+			//不能全为数字！！！！！
+			else if(!numN.test(this.value)){
+				pas_msg.style.color="#f00";
+				pas_msg.innerHTML="不能全为数字"
+			}
+			//不能全为字母
+			else if(!worN.test(this.value)){
+				pas_msg.style.color="#f00";
+				pas_msg.innerHTML="不能全为字母"
+			}
+			//ok
+			else{
+				pas_msg.style.color="#0f0";
+				pas_msg.innerHTML="ok"
+			}
+		};
+		//密码确认
+		pas2U.onfocus=function(){
+			pas2_msg.style.visibility="visible";
+		};
+		pas2U.onblur=function(){
+			if(this.value==""){
+				pas2_msg.style.color="#f00";
+				pas2_msg.innerHTML="不能为空"
+			}
+			else if(this.value!=pasU.value){
+				pas2_msg.style.color="#f00";
+				pas2_msg.innerHTML="两次输入的密码不一致"
+			}else{
+				pas2_msg.style.color="#0f0";
+				pas2_msg.innerHTML="ok"
+			}
+		};
+		//输入邮箱
+		emaU.onfocus=function(){
+			ema_msg.style.visibility="visible";
+		};
+		emaU.onblur=function(){
+			var ema=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			//不能为空
+			if(this.value==""){
+				ema_msg.style.color="#f00";
+				ema_msg.innerHTML="不能为空"
+			}
+			//格式不正确
+			else if(!ema.test(this.value)){
+				ema_msg.style.color="#f00";
+				ema_msg.innerHTML="请确认输入的邮箱格式正确"
+			}
+			//ok
+			else{
+				ema_msg.style.color="#0f0";
+				ema_msg.innerHTML="ok"
+			}
+		};
+		//电话验证
+		phoU.onfocus=function(){
+			pho_msg.style.visibility="visible";
+		};
+		phoU.onblur=function(){
+			var tel=/^1[34578]\d{9}$/g;
+			//不能为空
+			if(this.value==""){
+				pho_msg.style.color="#f00";
+				pho_msg.innerHTML="不能为空"
+			}
+			//格式不正确
+			else if(!tel.test(this.value)){
+				pho_msg.style.color="#f00";
+				pho_msg.innerHTML="请输入正确的电话号码"
+			}
+			//ok
+			else{
+				pho_msg.style.color="#0f0";
+				pho_msg.innerHTML="ok"
+			}
+		};
+
+
+
+
+
+	}
+
+
+</script>
+</body>
+</html>
