@@ -4,13 +4,15 @@
 	<meta charset="utf-8">
 	<title>task_03-02</title>
 	<style>
-		form{width:400px;margin:40px auto 0;}
+		.wrap{width:400px;margin:40px auto 0;overflow:hidden;}
 		span{display:inline-block;width:80px;font-weight:bold;}
 		input{width:260px;height:40px;border:1px solid #a0a0a0;border-radius:3px;text-indent:16px;}
 		p{font-size:16px;color:#999;margin-left:80px;visibility: hidden;}
+		button{width:60px;height:40px;background-color:#06f;border:1px solid #06f;border-radius:3px;float:right;margin-right:50px;}
 	</style>
 </head>
 <body>
+<div class="wrap">
 	<form>
 		<div>
 			<label><span>名称：</span><input id="txt" type="text" name="user-name"></label>
@@ -33,8 +35,8 @@
 			<p>请输入电话</p>
 		</div>
 	</form>
-
-
+	<button id="but">提交</button>
+</div>
 <script type="text/javascript">
 	//获取字符串的长度
 	function getLen(str){
@@ -58,7 +60,9 @@
 		var pas2U=inputA[2];
 		var emaU=inputA[3];
 		var phoU=inputA[4];
-
+		
+		var butA=document.getElementById("but");
+		
 		var pA=document.getElementsByTagName("p");
 		var name_msg=pA[0];
 		var pas_msg=pA[1];
@@ -214,10 +218,13 @@
 				pho_msg.innerHTML="ok"
 			}
 		};
-
-
-
-
+		butA.onclick=function(){
+			if(name_msg.innerHTML=="ok" && pas_msg.innerHTML=="ok" && pas2_msg.innerHTML=="ok" && ema_msg.innerHTML=="ok" && pho_msg.innerHTML=="ok"){
+				alert("提交成功")
+			}else{
+				alert("输入有误")
+			}
+		}
 
 	}
 
