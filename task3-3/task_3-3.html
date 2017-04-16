@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrap{width:500px;margin:40px auto 0; font-size:16px;}
+        span{display:inline-block;width:80px;}
+        .radios input{margin-right:10px;margin-bottom:20px;width:70px;}
+        #school select{margin-right:20px;width:100px;height:30px;border:1px solid #a0a0a0;border-radius:3px;}
+        #company input{width:200px;height:30px;border:1px solid #a0a0a0;border-radius:3px;}
+        #school{display:block;}
+        #company{display:none;}
+        #shs{display:none;}
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <form class="radios">
+        <label><input type="radio"  name="student" value="student" checked="checked">在校生</label>
+        <label><input type="radio" name="student" value="social" >非在校生</label>
+    </form>
+    <div id="school">
+        <label>
+            <span>城市</span>
+            <select name="type" onchange="show_sub(this.options[this.options.selectedIndex].value)">
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+            </select>
+        </label>
+        <label>
+            <span>学校</span>
+            <select name="type" id="bjs">
+                <option value="北京大学" selected="selected">北京大学</option>
+                <option value="清华大学">清华大学</option>
+            </select>
+            <select name="type" id="shs">
+                <option value="复旦大学" selected="selected">复旦大学</option>
+                <option value="同济大学">同济大学</option>
+            </select>
+        </label>
+    </div>
+    <div id="company">
+        <form>
+            <label><span>就业单位</span><input type="text" name="company"></label>
+        </form>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        var radO=document.getElementsByTagName("input")[0];
+        var radT=document.getElementsByTagName("input")[1];
+        var schS=document.getElementById("school");
+        var comI=document.getElementById("company");
+        var bJc=document.getElementsByTagName("option")[0];
+        var sHc=document.getElementsByTagName("option")[1];
+        var bjSs=document.getElementById("bjS");
+        var shSs=document.getElementById("shS");
+
+        //console.log(document.getElementById("cities").options[1])
+
+
+        //当在校生单选框被选中时候，非在校生不被选中， 城市学校show 公司hidden
+        radO.addEventListener("click",cd,false);
+        function cd(){
+            schS.style.display="block";
+            comI.style.display="none";
+        }
+        //当非在校生单选框被选中时候，在校生不被选中，城市学校hidden 公司show
+        radT.addEventListener("click",cd2,false);
+        function cd2(){
+            schS.style.display="none";
+            comI.style.display="block";
+        }
+
+        show_sub(v);
+    };
+    function show_sub(v){
+        if(v==0){
+            document.getElementById("shs").style.display="none";
+            document.getElementById("bjs").style.display="inline-block"
+        }else{
+            document.getElementById("bjs").style.display="none";
+            document.getElementById("shs").style.display="inline-block"
+        }
+    }
+</script>
+</body>
+</html>
