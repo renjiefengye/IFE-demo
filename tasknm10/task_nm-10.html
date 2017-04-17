@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式入门</title>
+    <style>
+        div{width:200px;margin:0 auto;}
+        input{width:180px;height:30px;border:1px solid #a0a0a0;border-radius:5px;}
+    </style>
+</head>
+<body>
+    <div>
+        <h4>请在下面输入电话</h4>
+        <input type="text">
+        <h4>请在下面输入英文单词</h4>
+        <input type="text">
+    </div>
+    <script>
+        var inP=document.getElementsByTagName("input")[0];
+        var inP2=document.getElementsByTagName("input")[1];
+
+
+        var te=/^1[34578]\d{9}$/g;
+        var wo=/\w*(\w)\1\w*/g;
+        inP.onblur=function(){
+            if(this.value==""){
+                alert("为空")
+            }else if(te.test(this.value)){
+                alert("格式正确")
+            }else{
+                alert("格式不正确")
+            }
+        };
+        inP2.onblur=function(){
+            if(this.value==""){
+                alert("为空")
+            }else if(wo.test(this.value)){
+                alert("有重复")
+            }else{
+                alert("无重复")
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>
